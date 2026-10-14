@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ساحة الألعاب | عبدالعزيز فهد اليوسف</title>
+<style>
+:root{--bg:#fff7ec;--card:#ffffff;--ink:#2a2140;--mute:#7a7090;--a:#7c3aed;--b:#f97316;--ok:#16a34a;--bad:#dc2626;--line:#eadfce;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15112a;--card:#201a3d;--ink:#f1ecff;--mute:#a79fc6;--a:#a78bfa;--b:#fb923c;--line:#352c5e}}
+:root[data-theme="dark"]{--bg:#15112a;--card:#201a3d;--ink:#f1ecff;--mute:#a79fc6;--a:#a78bfa;--b:#fb923c;--line:#352c5e}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;min-height:100vh}
+header{text-align:center;padding:22px 14px 8px}
+h1{margin:0;font-size:26px;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.by{color:var(--mute);font-size:13px;margin-top:6px}
+nav{display:flex;gap:8px;justify-content:center;padding:12px;flex-wrap:wrap}
+nav button{font:inherit;font-size:15px;border:2px solid var(--line);background:var(--card);color:var(--ink);padding:10px 16px;border-radius:999px;cursor:pointer}
+nav button.on{background:var(--a);border-color:var(--a);color:#fff;font-weight:700}
+main{max-width:480px;margin:0 auto;padding:6px 16px 30px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:18px;text-align:center}
+.st{display:flex;justify-content:space-around;margin-bottom:12px;font-size:14px;color:var(--mute)}
+.st b{display:block;font-size:22px;color:var(--ink)}
+.btn{font:inherit;font-size:16px;border:0;background:linear-gradient(90deg,var(--a),var(--b));color:#fff;padding:11px 22px;border-radius:12px;cursor:pointer;font-weight:700}
+.msg{min-height:30px;margin:12px 0;font-size:17px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.c{aspect-ratio:1;border-radius:14px;border:0;font-size:34px;cursor:pointer;background:linear-gradient(135deg,var(--a),var(--b));color:transparent;transition:transform .25s}
+.c.f{background:var(--card);border:2px solid var(--a);color:inherit}
+.c.m{background:#bbf7d0;border:2px solid var(--ok);color:inherit}
+input{font:inherit;font-size:22px;width:120px;text-align:center;padding:10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.rps{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.rps button{font-size:44px;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:10px 14px;cursor:pointer}
+.big{font-size:56px;min-height:70px}
+.hide{display:none}
+footer{text-align:center;color:var(--mute);font-size:12px;padding:10px 10px 24px}
+</style>
+</head>
+<body>
+<header><h1>🎮 ساحة الألعاب</h1><div class="by">من تطوير الطالب: عبدالعزيز فهد اليوسف</div></header>
+<nav><button class="on" data-g="mem">🧠 الذاكرة</button><button data-g="gus">🔢 التخمين</button><button data-g="rps">✊ حجرة وورقة</button></nav>
+<main>
+<section id="mem" class="card">
+  <div class="st"><div>الحركات<b id="mv">0</b></div><div>أفضل نتيجة<b id="mbest">-</b></div></div>
+  <div class="grid" id="board"></div>
+  <div class="msg" id="mmsg">اقلب بطاقتين متشابهتين!</div>
+  <button class="btn" id="mnew">لعبة جديدة</button>
+</section>
+<section id="gus" class="card hide">
+  <div class="st"><div>المحاولات<b id="gt">0</b></div><div>أفضل نتيجة<b id="gbest">-</b></div></div>
+  <div>فكرت في رقم من 1 إلى 100، خمّنه!</div>
+  <div class="msg" id="gmsg">اكتب تخمينك 👇</div>
+  <input id="gin" type="number" inputmode="numeric" min="1" max="100">
+  <div style="margin-top:12px"><button class="btn" id="gok">خمّن</button> <button class="btn" id="gnew" style="background:var(--mute)">من جديد</button></div>
+</section>
+<section id="rps" class="card hide">
+  <div class="st"><div>أنت<b id="rw">0</b></div><div>تعادل<b id="rd">0</b></div><div>الجهاز<b id="rl">0</b></div></div>
+  <div class="big" id="rshow">🤔</div>
+  <div class="msg" id="rmsg">اختر حركتك</div>
+  <div class="rps"><button data-m="0">✊</button><button data-m="1">✋</button><button data-m="2">✌️</button></div>
+  <button class="btn" id="rrst" style="background:var(--mute)">تصفير النتيجة</button>
+</section>
+</main>
+<footer>صُنع بكل حب ❤️ — © عبدالعزيز فهد اليوسف</footer>
+<script>
+const $=id=>document.getElementById(id);
+function ld(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function sv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  ['mem','gus','rps'].forEach(g=>$(g).classList.toggle('hide',g!==b.dataset.g));
+});
+/* ذاكرة */
+const EM=['🦁','🚀','⚽','🍕','🐙','🎸'];let first=null,lock=false,moves=0,pairs=0;
+let mb=ld('az_mem');if(mb)$('mbest').textContent=mb;
+function memNew(){
+  const a=[...EM,...EM].sort(()=>Math.random()-.5);moves=0;pairs=0;first=null;lock=false;
+  $('mv').textContent=0;$('mmsg').textContent='اقلب بطاقتين متشابهتين!';$('board').innerHTML='';
+  a.forEach(e=>{const c=document.createElement('button');c.className='c';c.dataset.e=e;c.textContent=e;c.onclick=()=>flip(c);$('board').appendChild(c)});
+}
+function flip(c){
+  if(lock||c.classList.contains('f')||c.classList.contains('m'))return;
+  c.classList.add('f');
+  if(!first){first=c;return}
+  moves++;$('mv').textContent=moves;
+  if(first.dataset.e===c.dataset.e){
+    first.classList.replace('f','m');c.classList.replace('f','m');first=null;pairs++;
+    if(pairs===EM.length){let m='🎉 أحسنت! خلصتها في '+moves+' حركة';
+      const best=ld('az_mem');if(!best||moves<+best){sv('az_mem',moves);$('mbest').textContent=moves;m+=' — رقم قياسي!'}
+      $('mmsg').textContent=m}
+  }else{lock=true;const f=first;first=null;setTimeout(()=>{f.classList.remove('f');c.classList.remove('f');lock=false},750)}
+}
+$('mnew').onclick=memNew;memNew();
+/* تخمين */
+let sec,tries;let gb=ld('az_gus');if(gb)$('gbest').textContent=gb;
+function gNew(){sec=1+Math.floor(Math.random()*100);tries=0;$('gt').textContent=0;$('gmsg').textContent='اكتب تخمينك 👇';$('gin').value=''}
+function guess(){
+  const v=parseInt($('gin').value);if(!(v>=1&&v<=100)){$('gmsg').textContent='اكتب رقم من 1 إلى 100';return}
+  tries++;$('gt').textContent=tries;
+  if(v===sec){let m='🎯 صح! الرقم '+sec+' في '+tries+' محاولة';const b=ld('az_gus');
+    if(!b||tries<+b){sv('az_gus',tries);$('gbest').textContent=tries;m+=' — رقم قياسي!'}$('gmsg').textContent=m}
+  else $('gmsg').textContent=v<sec?'⬆️ الرقم أكبر':'⬇️ الرقم أصغر';
+  $('gin').value='';
+}
+$('gok').onclick=guess;$('gnew').onclick=gNew;$('gin').onkeydown=e=>{if(e.key==='Enter')guess()};gNew();
+/* حجرة وورقة */
+const E=['✊','✋','✌️'];let s=[0,0,0];
+function upd(){$('rw').textContent=s[0];$('rd').textContent=s[1];$('rl').textContent=s[2]}
+document.querySelectorAll('.rps button').forEach(b=>b.onclick=()=>{
+  const me=+b.dataset.m,pc=Math.floor(Math.random()*3);
+  $('rshow').textContent=E[me]+'  ⚔️  '+E[pc];
+  if(me===pc){s[1]++;$('rmsg').textContent='🤝 تعادل'}
+  else if((me+1)%3===pc){s[2]++;$('rmsg').textContent='😅 الجهاز فاز'}
+  else{s[0]++;$('rmsg').textContent='🏆 أنت فزت!'}
+  upd();
+});
+$('rrst').onclick=()=>{s=[0,0,0];upd();$('rshow').textContent='🤔';$('rmsg').textContent='اختر حركتك'};
+</script>
+</body>
+</html>
